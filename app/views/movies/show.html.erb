@@ -1,0 +1,95 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+<p style="color: green"><%= notice %></p>
+
+<% if @movie.present? %>
+  <h1><%= @movie.title%>  (<%=@movie.year%>) </h1>
+  <dl>
+
+<% if @genres.present? %>
+  <ul>
+    <% @genres.each_with_index do |genre, index| %>
+        <%= genre.name %><%= ',' unless index == @genres.size - 1 %> 
+      <% end %>
+        <% if @movie.runtime.present? %>
+       | <%= @movie.runtime %> minutes
+    <% end %>
+  </ul>
+
+<% end %>
+
+    <% if @movie.director.present? %>
+      <dd>Directed by <%= @movie.director %></dd>
+    <% end %>
+          <br>
+
+    <% if @movie.tagline.present? %>
+      <dd><em><%= @movie.tagline.gsub("â€™", "'").upcase %></em></dd>
+    <% end %>
+    <br>
+    <% if @movie.overview.present? %>
+      <dd><%= @movie.overview.gsub("â€™", "'") %></dd>
+    <% end %>
+    
+    <br>
+ <% if @movie.rating.present? %>
+  <dt><strong>User Score:</strong></dt>
+  <dd>
+    <div class="pie-chart-container">
+      <div class="pie-chart" style="--rating: <%= @movie.rating %>"></div>
+    </div>
+   <%= ((@movie.rating * 10).to_i) %>%
+  </dd>
+<% end %>
+  </dl>
+<% end %>
+
+
+<% if @actors.present? %>
+  <h2>Cast</h2>
+  <ul>
+    <% @actors.each do |actor| %>
+      <li><%= actor.name %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+
+
+<div class="button-container">
+  <% if @is_in_watchlist %>
+    <%= form_tag(watchlist_path(@onmywatchlist), method: :delete) do %>
+      <%= hidden_field_tag :userid, @current_user.userid %>
+      <%= hidden_field_tag :movieid, @movie.movieid %>
+      <%= submit_tag "Remove from Watchlist", class: "btn btn-danger" %>
+    <% end %>
+  <% else %>
+    <%= form_tag('/watchlists', method: :post) do %>
+      <%= hidden_field_tag :userid, @current_user.userid %>
+      <%= hidden_field_tag :movieid, @movie.movieid %>
+      <%= submit_tag "Add to Watchlist", class: "btn btn-success" %>
+    <% end %>
+  <% end %>
+
+  <% if @is_seen %>
+    <%= form_tag(seen_path(@seenthis), method: :delete) do %>
+      <%= hidden_field_tag :userid, @current_user.userid %>
+      <%= hidden_field_tag :movieid, @movie.movieid %>
+      <%= submit_tag "Remove from Seen", class: "btn btn-danger" %>
+    <% end %>
+  <% else %>
+    <%= form_tag('/seens', method: :post) do %>
+      <%= hidden_field_tag :userid, @current_user.userid %>
+      <%= hidden_field_tag :movieid, @movie.movieid %>
+      <%= hidden_field_tag :watchdate, Time.now.strftime("%Y-%m-%d") %>
+      <%= submit_tag "Mark as Seen", class: "btn btn-success" %>
+    <% end %>
+  <% end %>
+  
+  <%= link_to "Show Reviews", movie_reviews_path(movie_id: @movie.movieid), class: "btn btn-primary" %>
+  <%= link_to "Back to search", search_movies_path, class: "btn btn-primary" %>
+</div>
+</div>
+</div>
+</div>

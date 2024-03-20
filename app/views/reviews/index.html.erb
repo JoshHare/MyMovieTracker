@@ -1,0 +1,23 @@
+<div class="container">
+  <p style="color: green"><%= notice %></p>
+  <h1 class="my-4">Reviews for <%= Movie.find_by(movieid: @reviewid).title %></h1>
+
+  <div class="row">
+    <% @reviews.each do |review| %>
+      <div class="col-md-4">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2 class="card-title"><%= review.rating %></h2>
+            <dl>
+              <dd><%= User.find_by(userid: review.userid).name %></dd>
+              <dd><%= review.reviewdate.strftime("%B %d, %Y" ) %></dd>
+              <dd><%= review.comment %></dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <%= link_to "New review", new_movie_review_path(userid: @current_user.userid, movieid: @reviewid) %>
+</div>

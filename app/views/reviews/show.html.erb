@@ -1,0 +1,29 @@
+<p style="color: green"><%= notice %></p>
+
+<% if @review.present? %>
+  <h2>Review Details</h2>
+  <dl>
+    <dt><strong>User ID:</strong></dt>
+    <dd><%= @review.userid %></dd>
+
+    <dt><strong>Movie ID:</strong></dt>
+    <dd><%= @review.movieid %></dd>
+
+    <dt><strong>Review Date:</strong></dt>
+    <dd><%= @review.reviewdate %></dd>
+
+    <dt><strong>Rating:</strong></dt>
+    <dd><%= @review.rating %></dd>
+
+    <dt><strong>Comment:</strong></dt>
+    <dd><%= @review.comment %></dd>
+  </dl>
+
+  <div>
+    <%= link_to "Edit this review", edit_review_path(@review) %> |
+    <%= link_to "Back to reviews", reviews_path %>
+    <%= button_to "Destroy this review", @review, method: :delete %>
+  </div>
+<% else %>
+  <p>No review found.</p>
+<% end %>

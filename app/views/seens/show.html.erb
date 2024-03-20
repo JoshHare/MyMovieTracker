@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @seen %>
+
+<div>
+  <%= link_to "Edit this seen", edit_seen_path(@seen) %> |
+  <%= link_to "Back to seens", seens_path %>
+
+  <%= button_to "Destroy this seen", @seen, method: :delete %>
+</div>

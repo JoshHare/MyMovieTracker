@@ -1,0 +1,40 @@
+<div class="container">
+  <% if notice.present? %>
+  <div class="alert alert-success" role="alert">
+    <%= notice %>
+  </div>
+<% end %>
+  <h1 class="my-4">Movies I Have Seen</h1>
+  
+  <div class="button-container">
+    <%= link_to "Sort A-Z", seens_path(sort: "asc"), class: "btn btn-primary" %>
+    <%= link_to "Sort Z-A", seens_path(sort: "desc"), class: "btn btn-primary" %>
+    <%= link_to "Highest Rating", seens_path(sort: "highest_rating"), class: "btn btn-primary" %>
+    <%= link_to "Lowest Rating", seens_path(sort: "lowest_rating"), class: "btn btn-primary" %>
+    <%= link_to "Earliest Release Year", seens_path(sort: "earliest_year"), class: "btn btn-primary" %>
+    <%= link_to "Latest Release Year", seens_path(sort: "latest_year"), class: "btn btn-primary" %>
+  </div>
+  
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <% @seens.each do |seen| %>
+      <div class="col">
+        <div class="card mb-4 h-100">
+          <div class="card-body">
+            <h5 class="card-title"><%= seen['title'] %> (<%= seen['year'] %>)</h5>
+            <p class="card-text"><strong>Watched On:</strong> <%= seen['watchdate'].strftime("%B %d, %Y" ) %></p>
+            <% if seen['user_rating'] %>
+              <p class="card-text"><strong>User Rating:</strong> <%= seen['user_rating'] %></p>
+            <% end %>
+            <% if seen['comment'] %>
+              <p class="card-text"> <%= seen['comment'] %></p>
+            <% end %>
+            <%= link_to "See Movie Details", movie_path(seen['movieid']), class: "btn btn-primary" %>
+            <% if seen['user_rating'].nil? && seen['comment'].nil? %>
+              <%= link_to "Add Review", new_movie_review_path(userid: @current_user.userid, movie_id: seen['movieid']), class: "btn btn-primary" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

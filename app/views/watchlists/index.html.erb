@@ -1,0 +1,42 @@
+<p style="color: green"><%= notice %></p>
+
+
+
+<div class="container">
+  <h1 class = "my-4">My Watchlist</h1>
+
+  <div class="button-container">
+    <%= link_to "Order Added", watchlists_path(sort: "orderadded"), class: "btn btn-primary" %>
+    <%= link_to "Sort A-Z", watchlists_path(sort: "asc"), class: "btn btn-primary" %>
+    <%= link_to "Sort Z-A", watchlists_path(sort: "desc"), class: "btn btn-primary" %>
+    <%= link_to "Highest Rating", watchlists_path(sort: "highest_rating"), class: "btn btn-primary" %>
+    <%= link_to "Lowest Rating", watchlists_path(sort: "lowest_rating"), class: "btn btn-primary" %>
+    <%= link_to "Earliest Release Year", watchlists_path(sort: "earliest_year"), class: "btn btn-primary" %>
+    <%= link_to "Latest Release Year", watchlists_path(sort: "latest_year"), class: "btn btn-primary" %>
+  </div>
+  
+  <div class="row">
+    <% @watchlists.each_with_index do |watchlist, index| %>
+      <div class="col-md-4">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title"><%= watchlist['title'] %> (<%= watchlist['year'] %>)</h5>
+          <div class="button-container">
+  <%= link_to "View Details", movie_path(watchlist['movieid']), class: "btn btn-primary" %>
+  
+  <%= form_tag('/seens', method: :post) do %>
+    <%= hidden_field_tag :userid, @current_user.userid %>
+    <%= hidden_field_tag :movieid, watchlist['movieid'] %>
+    <%= hidden_field_tag :watchdate, Time.now.strftime("%Y-%m-%d") %>
+    <%= submit_tag "Mark as Seen", class: "btn btn-primary mark-as-seen-button" %>
+  <% end %>
+   <%= form_tag(watchlist_path(Watchlist.find(watchlist['watchlistid'])), method: :delete) do %>
+      <%= submit_tag "Remove", class: "btn btn-primary mark-as-seen-button" %>
+    <% end %>
+</div>
+</div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

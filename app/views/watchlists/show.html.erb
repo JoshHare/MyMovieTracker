@@ -1,0 +1,18 @@
+<p style="color: green"><%= notice %></p>
+
+<% if @watchlist.present? %>
+  <h2>Watchlist Details</h2>
+  <ul>
+   
+      <li><%= @watchlist.movieid %></li>
+  
+  </ul>
+<% end %>
+
+<div>
+  <%= link_to "Edit this watchlist", edit_watchlist_path(@watchlist) %> |
+  <%= link_to "Back to watchlists", watchlists_path %>
+
+  <%= button_to "Destroy this watchlist", @watchlist, method: :delete %>
+</div>
+

@@ -1,15 +1,307 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
+/* Body and General Layout */
+@import "bootstrap";
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #2C343F !important; /* Light gray color */
+ 
+    color: #ffffff !important;
+    padding: 20px;
+}
+
+h1{
+  margin-top: 50px !important;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Header */
+header {
+    background-color: #F27405 !important;
+    color: #fff;
+    padding: 20px;
+}
+
+/* Links */
+a {
+    color: #fff !important;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    background-color:#F27405 !important;
+    color: #fff !important;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background-color: #00B021 !important;
+}
+
+/* Forms */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline:none !important;
+}
+
+input[type="submit"] {
+    background-color: #F27405 !important;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #F27405 !important;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.search-container {
+    display: flex;
+}
+
+.input-container {
+    flex: 1;
+    padding-right: 200px;
+}
+
+.results-container {
+    flex: 1;
+}
+
+nav {
+    background-color: #F27405 !important; /* Change navbar background color */
+    color: #fff;
+    padding: 10px 0; /* Reduce top and bottom padding */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    text-align: center; /* Center align the navbar items */
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px; /* Increase horizontal padding */
+    border-radius: 5px; /* Add border-radius for rounded corners */
+    transition: background-color 0.3s; /* Smooth transition for background color change */
+}
+
+nav ul li a:hover {
+    background-color: #00B021; /* Darker color on hover */
+}
+
+/* Optionally, you can style the active link differently */
+nav ul li.active a {
+    background-color: #0056b3; /* Example color for active link */
+}
+
+.navbar-right {
+    float: right; /* Float the right-aligned elements to the right */
+}
+
+/* Add a box shadow to the navbar for depth */
+
+.button-container {
+    display: flex;
+    padding-bottom: 20px;
+}
+
+.button-container form,
+.button-container a {
+    margin-right: 5px; /* Adjust as needed */
+}
+
+.pie-chart-container {
+    width: 100px; /* Set the width and height of the pie chart container */
+    height: 100px;
+    position: relative;
+}
+
+.pie-chart {
+    width: 100px; /* Set the width and height of the pie chart */
+    height: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 50%; /* Create a circular shape */
+    background: conic-gradient(
+        #007bff calc(var(--rating) * 10%),
+        transparent calc(var(--rating) * 10%)
+    ); /* Create a conic gradient to simulate a pie chart */
+}
+
+.accordion-item {
+    margin-bottom: 20px;
+    border-radius: 0px !important;
+    border: none !important;
+}
+
+.accordion-button{
+  background-color: #F27405 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 0 !important; /* Remove rounded border-radius */
+}
+
+.accordion-button[aria-expanded="true"] {
+    background-color: #F27405 !important;
+    color: white !important;
+    border: none !important;
+}
+
+.accordion-button:after {
+    color: #404040;
+    border: none !important;
+}
+
+.accordion-body {
+ background-color: #556678 !important;
+ color: white;
+ border: none !important;
+}
+.accordion{
+  border:none !important;
+  background-color: #F27405 !important;
+}
+
+
+.card {
+    margin-bottom: 20px; /* Adjust the bottom margin to set the vertical distance between cards */
+    background-color: #556678!important;
+  }
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px; /* Adjust for negative margin on columns */
+    margin-left: -15px; /* Adjust for negative margin on columns */
+}
+
+.card-body {
+    width: 100%; /* Ensure card body takes up full width */
+}
+
+.col-md-4 {
+    padding: 0 15px; /* Adjust for column padding */
+}
+.btn.btn-primary {
+  color: #fff !important; /* Set text color to white */
+  border-color: #F27405 !important;
+}
+
+.mark-as-seen-button {
+    background-color: #00B021 !important;
+    border-color: #00B021 !important;
+    height: 40px;
+    display: flex;
+    text-align: center; /* Center the text horizontally */
+    align-items: center; /* Center the text vertically */
+    line-height: 20px !important;
+}
+
+.btn.btn-danger {
+  background-color: #F27405 !important; /* Red background color */
+  border-color: #dc3545; /* Red border color */
+  color: #fff !important; /* White text color */
+}
+.navbar-links a {
+  color: #fff !important; /* Set navbar links color to white */
+}
+
+/* Other Links */
+a:not(.navbar-links) {
+  color: #F27405 !important; /* Set other links color to orange */
+}
+
+
+/* Style checkboxes */
+.form-check-input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+}
+
+/* Customize the appearance of the checkbox */
+.form-check-input[type="checkbox"] + .form-check-label:before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border: 0px solid #F27405; /* Border color for unchecked state */
+  border-radius: 4px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+/* Style checked checkboxes */
+.form-check-input[type="checkbox"]:checked + .form-check-label:before {
+  background-color: #F27405; /* Background color for checked state */
+}
+
+/* Style checkmark inside the checkbox */
+.form-check-input[type="checkbox"]:checked + .form-check-label:before:after {
+  content: '\2714'; /* Unicode checkmark symbol */
+  font-size: 14px;
+  color: #fff; /* Color of the checkmark */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.form-control {
+  width: 100% !important;
+  padding: 10px !important;
+  border: 1px solid #ccc !important;
+  border-radius: 5px !important;
+  outline: none !important; /* Remove blue outline */
+}
+.search-container .form-control {
+  outline: none !important; /* Remove blue outline */
+}
+.form-control option:hover {
+  background-image: none !important;
+  background-color: #F27405 !important;
+  color: #fff;
+}

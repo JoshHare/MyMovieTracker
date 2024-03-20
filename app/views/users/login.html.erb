@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <h1>My Movie Tracker</h1>
+    <div class="col-md-6">
+      <h1>Login</h1>
+
+      <%= form_with(url: login_path, method: :post, class: "mt-4") do |form| %>
+        <div class="form-group">
+          <%= form.label :name %>
+          <%= form.text_field :name, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :password %>
+          <%= form.password_field :password, class: "form-control" %>
+        </div>
+
+        <div class="text-center">
+          <%= form.submit 'Login', class: "btn btn-primary" %>
+        </div>
+      <% end %>
+
+      <br>
+
+      <div class="text-center">
+        <%= link_to "Sign up", new_user_path %>
+      </div>
+    </div>
+  </div>
+</div>

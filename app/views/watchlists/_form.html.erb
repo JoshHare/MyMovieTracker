@@ -1,0 +1,27 @@
+<%= form_with(model: watchlist) do |form| %>
+  <% if watchlist.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(watchlist.errors.count, "error") %> prohibited this watchlist from being saved:</h2>
+
+      <ul>
+        <% watchlist.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :user_id %>
+    <%= form.number_field :user_id %>
+  </div>
+
+  <div>
+    <%= form.label :movie_id %>
+    <%= form.number_field :movie_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

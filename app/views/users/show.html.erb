@@ -1,0 +1,50 @@
+<div class="container">
+
+  <% if notice.present? %>
+  <div class="alert alert-success" role="alert">
+    <%= notice %>
+  </div>
+<% end %>
+
+  <h1 class="my-4">My Stats</h1>
+
+  <div class="row">
+    <div class="col-md-6">
+      <p>
+        <strong>Total Movies Seen:</strong>
+        <%= @num_seen %>
+      </p>
+      <p>
+        <strong>Total Movies in Watchlist:</strong>
+        <%= @num_watchlist %>
+      </p>
+      <p>
+        <strong>Average Rating:</strong>
+        <%= @avg_rating.round(2) %>
+      </p>
+     <% if @fav_actor.present? %>
+        <p>
+          <strong>Favorite Actor:</strong>
+          <%= @fav_actor.first['name'] %> (<%= @fav_actor.first['appearances'] %> movies seen)
+        </p>
+
+      <% end %>
+    <% if @fav_director.present? %>
+      <p>
+        <strong>Favorite Director:</strong>
+        <%= @fav_director.first['director'] %>  (<%= @fav_director.first['num_movies_seen'] %> movies seen)
+      </p>
+      <% end %>
+    </div>
+    <div class="col-md-6">
+      <p>
+        <strong>Top Genres:</strong>
+      </p>
+      <ul>
+        <% @top_genres.each do |genre| %>
+          <li><%= genre['name'] %> (<%= genre['num_movies_seen'] %> movies seen)</li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,131 @@
+<h1 class="text-center my-4">Search Movies</h1>
+
+<div class="container">
+  <div class="search-container row justify-content-center">
+    <!-- Search form -->
+    <div class="input-container col-md-6">
+      <%= form_tag search_movies_path, method: :get, class: "mb-3" do %>
+            <!-- Title -->
+        <div class="mb-3 row align-items-center">
+        <%= label_tag :title_cont, "Title", class: "form-label col-md-4" %>
+        <div class="col-md-8">
+            <%= text_field_tag :title_cont, params[:title_cont], class: "form-control" %>
+        </div>
+        </div>
+
+        <!-- Year -->
+        <div class="mb-3 row align-items-center">
+        <%= label_tag :year_eq, "Year", class: "form-label col-md-4" %>
+        <div class="col-md-8">
+            <%= text_field_tag :year_eq, params[:year_eq], class: "form-control" %>
+        </div>
+        </div>
+
+        <!-- Director -->
+        <div class="mb-3 row align-items-center">
+        <%= label_tag :director_cont, "Director", class: "form-label col-md-4" %>
+        <div class="col-md-8">
+            <%= text_field_tag :director_cont, params[:director_cont], class: "form-control" %>
+        </div>
+        </div>
+
+        <%# <!-- Runtime -->
+        <div class="mb-3 row align-items-center">
+        <%= label_tag :runtime_eq, "Runtime is", class: "form-label col-md-4" 
+        <div class="col-md-8">
+            <%= text_field_tag :runtime_eq, params[:runtime_eq], class: "form-control" 
+        </div>
+        </div>
+
+        <!-- Minimum Rating -->
+        <div class="mb-3 row align-items-center">
+        <%= label_tag :min_rating, "Minimum Rating", class: "form-label col-md-4" 
+        <div class="col-md-8">
+            <%= number_field_tag :min_rating, params[:min_rating], class: "form-control", step: 0.01 
+        </div>
+        </div>
+
+        <!-- Maximum Rating -->
+        <div class="mb-3 row align-items-center">
+        <%= label_tag :max_rating, "Maximum Rating", class: "form-label col-md-4" 
+        <div class="col-md-8">
+            <%= number_field_tag :max_rating, params[:max_rating], class: "form-control", step: 0.01 
+        </div>
+        </div> %>
+
+        <!-- Cast -->
+        <div class="mb-3 row align-items-center">
+        <%= label_tag :cast_cont, "Cast", class: "form-label col-md-4" %>
+        <div class="col-md-8">
+            <%= text_field_tag :cast_cont, params[:cast_cont], class: "form-control" %>
+        </div>
+        </div>
+
+    <!-- Genre -->
+<div class="mb-3">
+  <div class="accordion" id="genreAccordion">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="genreHeading">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#genreCollapse" aria-expanded="false" aria-controls="genreCollapse">
+          Search By Genre
+        </button>
+      </h2>
+      <div id="genreCollapse" class="accordion-collapse collapse">
+        <div class="accordion-body">
+          <div class="row">
+            <div class="col-md-6">
+              <%= label_tag :genre_ids, "Genres", class: "form-label" %>
+              <% Genre.all.each_with_index do |genre, index| %>
+                <% if index < 19 / 2 %>
+                  <div class="form-check">
+                    <%= check_box_tag "movie[genre_ids][]", genre.genreid, @selected_genres&.include?(genre.genreid), id: "genre_#{genre.genreid}", class: "form-check-input" %>
+                    <%= label_tag "genre_#{genre.genreid}", genre.name, class: "form-check-label" %>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+            <div class="col-md-6">
+              <% Genre.all.each_with_index do |genre, index| %>
+                <% if index >= 19/ 2 %>
+                  <div class="form-check">
+                    <%= check_box_tag "movie[genre_ids][]", genre.genreid, @selected_genres&.include?(genre.genreid), id: "genre_#{genre.genreid}", class: "form-check-input" %>
+                    <%= label_tag "genre_#{genre.genreid}", genre.name, class: "form-check-label" %>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Add a sort dropdown menu -->
+<div class="mb-3">
+  <%= form_tag search_movies_path, method: :get, class: "form-inline" do %>
+    <%= label_tag "sort_by", "Sort by:", class: "mr-2" %>
+    <%= select_tag "sort_by", options_for_select({ "Alphabetical Order" => "alpha_order", "Rating (High to Low)" => "rating_desc", "Rating (Low to High)" => "rating_asc", "Minimum Runtime" => "min_runtime", "Maximum Runtime" => "max_runtime", "Earliest Release Year" => "earliest_release_year", "Latest Release Year" => "latest_release_year" }, params[:sort_by]), { include_blank: "Select", class: "form-control mr-2" } %>
+    <br>
+ <%= submit_tag "Search", class: "btn btn-primary d-block mx-auto" %>
+  <% end %>
+</div>
+        <!-- Submit button -->
+      <% end %> <!-- Closing form_tag here -->
+    </div>
+
+    <!-- Search results -->
+<div class="results-container">
+  <% if @movies.present? %>
+    <h2>Results</h2>
+    <ul>
+      <% @movies.each do |movie| %>
+        <li>
+          <%= link_to "#{movie.title} - #{movie.year}", movie_path(movie) %>
+          <!-- Display other movie attributes as needed -->
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
+  </div>
+</div>

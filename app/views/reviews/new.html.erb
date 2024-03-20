@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="row justify-content-center">
+
+<h1>New Review for <%= Movie.find_by(movieid: params[:movie_id]).title %></h1>
+
+<div class="col-md-6">
+
+<%= form_with(model: @review) do |form| %>
+  <% if @review.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(@review.errors.count, "error") %> prohibited this review from being saved:</h2>
+
+      <ul>
+        <% @review.errors.full_messages.each do |message| %>
+          <li><%=  params[:movie_id]%></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <!-- Hidden fields for userid, date and movieid -->
+  <%= form.hidden_field :userid, value: @current_user.userid %>
+  <%= form.hidden_field :movieid, value: params[:movie_id] %> <!-- Assuming the movieid is always 12 -->
+  <%= form.hidden_field :reviewdate, value: Date.today %>
+
+  <div>
+    <%= form.label :rating %>
+    <%= form.number_field :rating, in: 1..10 %> <!-- Assuming rating is between 1 and 5 -->
+  </div>
+
+  <div>
+    <%= form.label :comment %>
+    <%= form.text_area :comment %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<div>
+  <%= link_to "Back to reviews", movie_reviews_path(movie_id: params[:movie_id]) %>
+</div>
+</div>
+
+</div>
+</div>
+
